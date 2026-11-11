@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TEFWEB.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AddClienteMercadorias : Migration
+    public partial class AddCarrinho : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,24 +26,27 @@ namespace TEFWEB.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ItensMercadoriaCliente",
+                name: "Carrinhos",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     ClienteId = table.Column<Guid>(type: "TEXT", nullable: false),
                     MercadoriaId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Preco = table.Column<decimal>(type: "TEXT", nullable: false)
+                    Quantidade = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Peso = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ItensMercadoriaCliente", x => new { x.ClienteId, x.MercadoriaId });
+                    table.PrimaryKey("PK_Carrinhos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ItensMercadoriaCliente_Clientes_ClienteId",
+                        name: "FK_Carrinhos_Clientes_ClienteId",
                         column: x => x.ClienteId,
                         principalTable: "Clientes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ItensMercadoriaCliente_Mercadorias_MercadoriaId",
+                        name: "FK_Carrinhos_Mercadorias_MercadoriaId",
                         column: x => x.MercadoriaId,
                         principalTable: "Mercadorias",
                         principalColumn: "Id",
@@ -51,8 +54,13 @@ namespace TEFWEB.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ItensMercadoriaCliente_MercadoriaId",
-                table: "ItensMercadoriaCliente",
+                name: "IX_Carrinhos_ClienteId",
+                table: "Carrinhos",
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carrinhos_MercadoriaId",
+                table: "Carrinhos",
                 column: "MercadoriaId");
         }
 
@@ -60,7 +68,7 @@ namespace TEFWEB.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ItensMercadoriaCliente");
+                name: "Carrinhos");
 
             migrationBuilder.DropTable(
                 name: "Mercadorias");

@@ -10,7 +10,7 @@ public class PessoasDbContext(DbContextOptions<PessoasDbContext> options) : DbCo
     public DbSet<Supervisor> Supervisores => Set<Supervisor>();
     public DbSet<Caixa> Caixas => Set<Caixa>();
     public DbSet<Mercadoria> Mercadorias => Set<Mercadoria>();
-    public DbSet<ItemMercadoriaCliente> ItensMercadoriaCliente => Set<ItemMercadoriaCliente>();
+    public DbSet<Carrinho> Carrinhos => Set<Carrinho>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -20,19 +20,16 @@ public class PessoasDbContext(DbContextOptions<PessoasDbContext> options) : DbCo
         modelBuilder.Entity<Supervisor>().ToTable("Supervisores");
         modelBuilder.Entity<Caixa>().ToTable("Caixas");
 
-        modelBuilder.Entity<ItemMercadoriaCliente>()
-            .HasKey(item => new { item.ClienteId, item.MercadoriaId });
-
-        modelBuilder.Entity<ItemMercadoriaCliente>()
-            .HasOne(item => item.Cliente)
-            .WithMany(cliente => cliente.ItensMercadoriaCliente)
-            .HasForeignKey(item => item.ClienteId)
+        modelBuilder.Entity<Carrinho>()
+            .HasOne(carrinho => carrinho.Cliente)
+            .WithMany(cliente => cliente.Carrinhos)
+            .HasForeignKey(carrinho => carrinho.ClienteId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<ItemMercadoriaCliente>()
-            .HasOne(item => item.Mercadoria)
-            .WithMany(mercadoria => mercadoria.ItensClientes)
-            .HasForeignKey(item => item.MercadoriaId)
+        modelBuilder.Entity<Carrinho>()
+            .HasOne(carrinho => carrinho.Mercadoria)
+            .WithMany(mercadoria => mercadoria.Carrinhos)
+            .HasForeignKey(carrinho => carrinho.MercadoriaId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

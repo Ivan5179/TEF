@@ -11,8 +11,8 @@ using TEFWEB.Data;
 namespace TEFWEB.Data.Migrations
 {
     [DbContext(typeof(PessoasDbContext))]
-    [Migration("20261111122334_AddClienteMercadorias")]
-    partial class AddClienteMercadorias
+    [Migration("20261111131146_AddCarrinho")]
+    partial class AddCarrinho
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,22 +20,31 @@ namespace TEFWEB.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.14");
 
-            modelBuilder.Entity("TEFWEB.Models.ItemMercadoriaCliente", b =>
+            modelBuilder.Entity("TEFWEB.Models.Carrinho", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<Guid>("ClienteId")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("MercadoriaId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Preco")
+                    b.Property<decimal>("Peso")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("ClienteId", "MercadoriaId");
+                    b.Property<decimal>("Quantidade")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
 
                     b.HasIndex("MercadoriaId");
 
-                    b.ToTable("ItensMercadoriaCliente");
+                    b.ToTable("Carrinhos");
                 });
 
             modelBuilder.Entity("TEFWEB.Models.Mercadoria", b =>
@@ -97,16 +106,16 @@ namespace TEFWEB.Data.Migrations
                     b.ToTable("Supervisores", (string)null);
                 });
 
-            modelBuilder.Entity("TEFWEB.Models.ItemMercadoriaCliente", b =>
+            modelBuilder.Entity("TEFWEB.Models.Carrinho", b =>
                 {
                     b.HasOne("TEFWEB.Models.Cliente", "Cliente")
-                        .WithMany("ItensMercadoriaCliente")
+                        .WithMany("Carrinhos")
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TEFWEB.Models.Mercadoria", "Mercadoria")
-                        .WithMany("ItensClientes")
+                        .WithMany("Carrinhos")
                         .HasForeignKey("MercadoriaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -118,12 +127,12 @@ namespace TEFWEB.Data.Migrations
 
             modelBuilder.Entity("TEFWEB.Models.Mercadoria", b =>
                 {
-                    b.Navigation("ItensClientes");
+                    b.Navigation("Carrinhos");
                 });
 
             modelBuilder.Entity("TEFWEB.Models.Cliente", b =>
                 {
-                    b.Navigation("ItensMercadoriaCliente");
+                    b.Navigation("Carrinhos");
                 });
 #pragma warning restore 612, 618
         }
