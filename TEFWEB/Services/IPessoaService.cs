@@ -4,5 +4,8 @@ namespace TEFWEB.Services;
 
 public interface IPessoaService
 {
-    Task<List<PessoaResumoDto>> RetornarPessoasAsync(CancellationToken cancellationToken);
+    Task<List<TodasPessoas>> RetornarPessoasAsync(CancellationToken cancellationToken);
+
+    Task<PessoaEspecifica?> RetornarPorIdAsync(Guid id, CancellationToken cancellationToken);
 }
+

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TEFWEB")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ddc777e159f0b38e6fb9deb78b4d17f80919e9b8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0a8c39e55f1eafc7fbec2b9dd64a89d85f30d125")]
 [assembly: System.Reflection.AssemblyProductAttribute("TEFWEB")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TEFWEB")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

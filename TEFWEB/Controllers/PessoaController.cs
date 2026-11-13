@@ -17,9 +17,19 @@ public class PessoaController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<PessoaResumoDto>>> GetPessoas(
+    public async Task<ActionResult<List<TodasPessoas>>> GetPessoas(
         CancellationToken cancellationToken)
     {
         return await _pessoaService.RetornarPessoasAsync(cancellationToken);
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<PessoaEspecifica>> RetornarPorId(Guid id, CancellationToken cancellationToken)
+    {
+        var pessoa = await _pessoaService.RetornarPorIdAsync(id, cancellationToken);
+
+        if (pessoa == null) return NotFound();
+
+        return Ok(pessoa);
     }
 }
